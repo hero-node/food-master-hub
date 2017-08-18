@@ -1,0 +1,21 @@
+{
+  "name": "hero-template",
+  "version": "0.0.1",
+  "dependencies": {
+    "axios": "^0.16.1",
+    "hero-cli": "github:hero-mobile/hero-cli",
+    "hero-js": "github:hero-mobile/hero-js",
+    "mafia-js": "github:hero-mobile/mafia-js",
+    "promise": "^7.1.1",
+    "qs": "^6.4.0"
+  },
+  "scripts": {
+    "start": "hero start -e dev -p 3000 --verbose",
+    "build": "hero build -e prod -m -f --verbose",
+    "build-framework": "hero build -e prod -m -f -b --verbose",
+    "build-basic": "hero build -e prod -m -f -s -i --verbose",
+    "serve": "hero serve",
+    "android": "hero platform build android -e prod",
+    "ios": "hero platform build ios -e prod"
+  }
+}

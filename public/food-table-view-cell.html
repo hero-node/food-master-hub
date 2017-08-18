@@ -1,0 +1,101 @@
+<!--
+BSD License
+Copyright (c) Hero software.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+ * Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+ * Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+ * Neither the name Facebook nor the names of its contributors may be used to
+   endorse or promote products derived from this software without specific
+   prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<dom-module id="food-table-view-cell">
+  <template>
+    <style type="text/css">
+    div{
+      display: block;
+      position: relative;
+      overflow: hidden;
+      margin: 0px;
+      padding: 0px;
+      height: 60px;
+      overflow: hidden;
+      background-color: #fff;
+      left: 15px;
+    }
+    #title{
+      position: absolute;
+      left: 70px;
+      height: 30px;
+      right: 10px;
+      display: block;
+    }
+    #desc{
+      position: absolute;
+      left: 70px;
+      top: 30px;
+      height: 30px;
+      display: block;
+      right: 10px;
+    }
+    #icon{
+      position: absolute;
+      display: block;
+      font-size: 13px;
+      top: 0px;
+      right: 20px;
+      color: #ddd;
+    }
+    </style>
+    <div id='heroContent' on-Tap='onTap'>
+      <p id='title'></p>
+      <p id='desc'></p>
+      <img id='icon'></img>
+    </div>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: "food-table-view-cell",
+      behaviors: [HeroBehavior],
+      on: function(json) {
+        if (json.icon) {
+          this.$.icon.src = json.icon;
+        };
+        if (json.title) {
+          this.$.title.innerHTML = json.title;
+        };
+        if (json.desc) {
+          this.$.desc.innerHTML = json.desc;
+        };
+      },
+      onTap:function(){
+        var json = this.json
+        if (json.action) {
+          this.controller.on(json.action)
+        }else{
+          this.controller.on(json)
+        }
+      }
+    })
+
+</script>
