@@ -23,7 +23,11 @@ function hashArray2Array(hashs,cb) {
     var hash = hashs[i];
     getData(hash,function(err,d){
       if (!err) {
-        arr.push(d);
+        Array.isArray(d){
+          arr.concat(d);
+        }else{
+          arr.push(d);
+        }
       }else{
         cb(err);
       }

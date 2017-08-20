@@ -28,7 +28,7 @@ export class DecoratePage {
     	var address = getInitData().address || '0xB7E9D52459a89e346C5777970cf66A190937c325';
 		   	var list = [
 	    	{
-	    		sectionTitle:'我经营的美食',
+	    		sectionTitle:'我的活动',
 	    		rows:[
 
 					{
@@ -38,7 +38,7 @@ export class DecoratePage {
 		    		}
 	    		]
 	    	},	    	{
-	    		sectionTitle:'我的粉丝',
+	    		sectionTitle:'我的伙伴',
 	    		rows:[
 
 					{
@@ -49,7 +49,7 @@ export class DecoratePage {
 	    		]
 	    	},
 			{
-	    		sectionTitle:'附近的美食',
+	    		sectionTitle:'附近的活动',
 	    		rows:[
 
 	    		]
@@ -79,18 +79,6 @@ export class DecoratePage {
      			Hero.out({datas:[{name:'foodmaster',data:list}]})
 			};
 		});
-
-		// getListData('0x33739a02D8E7fE94888eABb5Ba9aaea0d228996F',function(err,data){
-		// 	if (data.result) {
-		// 		for (var i = 0; i < data.result.length; i++) {
-		// 			var item = data.result[i];
-		// 			if (item.input && item.input.length > 20) {
-		// 				var input = JSON.parse(web3.toAscii(item.input));
-		// 				console.log(input);
-		// 			};
-		// 		};
-		// 	};
-		// })
     }
     @Message(function(data){ return data.title && data.icon && data.address;})
     selectMaster(data) {

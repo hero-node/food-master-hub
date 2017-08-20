@@ -6,7 +6,7 @@ export default {
 	version: 0,
 	backgroundColor: 'f5f5f5',
 	nav: {
-        title: '美食',
+        title: '活动',
         tintColor:'00bc8d',
         navigationBarHidden: Hero.getDeviceType()==='WECHAT',
 	},
