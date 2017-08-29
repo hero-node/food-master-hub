@@ -1,5 +1,6 @@
 import { PATH as path } from '../../constant/index';
 import { Hero } from 'hero-js';
+import {getNode} from '../../utils/heroNodes';
 
 
 export default {
@@ -13,108 +14,16 @@ export default {
 	views:
 	[
         {
-            class:'UIView',
-            frame:{w:'1x',h:'300'},
-            backgroundColor:'ffffff',
-        },
-        {
-            class:'UIView',
-            frame:{x:'15',r:'0',y:'250',h:'0.5'},
+            class:'HeroTableView',
+            frame:{w:'1x',h:'1x'},
             backgroundColor:'f5f5f5',
+            name:'table'
         },
         {
-            class:'HeroImageView',
-            frame:{w:'1x',h:'200'},
-            name:'image',
-            backgroundColor:'eeeeee',
-            image:'https://p0.meituan.net/deal/28ac614b9519d5e2b84e361e15b7c570360333.jpg%40450w_280h_1e_1c_1l%7Cwatermark%3D1%26%26r%3D1%26p%3D9%26x%3D2%26y%3D2%26relative%3D1%26o%3D20'
+            class: 'HeroToast',
+            name: 'toast'
         },
         {
-            class:'HeroLabel',
-            name:'desc',
-            frame:{x:'15',r:'15',y:'160',h:'40'},
-            textColor:'cccccc',
-            numberOfLines:2,
-            size:10,
-            text:'仅交换0.001 eth，最高交换1.0 eth, 同时接受PAY、OMG、ANS交换'
-        },
-        {
-            class:'HeroLabel',
-            frame:{x:'15',r:'15',y:'200',h:'50'},
-            text:'交换值(eth): 0.01',
-            textColor:'ff6622',
-            size:26,
-            attribute:{
-              'color(0,9)':'aaaaaa',
-              'size(0,9)':'16',
-            },
-        },
-        {
-            class: 'DRButton',
-            DRStyle: 'B1',
-            enable: true,
-            frame: { r: '15', w: '88', y: '205', h: '40' },
-            title: '去交换',
-            click: [{datas:[{name:'payView',hidden:false}]},{click:'change'}]
-        },
-        {
-            class:'HeroLabel',
-            frame:{x:'15',r:'15',y:'250',h:'50'},
-            text:'历史交换次数: 0',
-            textColor:'ff6622',
-            size:26,
-            attribute:{
-              'color(0,7)':'aaaaaa',
-              'size(0,7)':'16',
-            },
-        },
-        {
-            class:'HeroLabel',
-            frame:{r:'15',w:'0.5x',y:'250',h:'50'},
-            text:'今日交换: 0',
-            textColor:'ff6622',
-            size:26,
-            attribute:{
-              'color(0,5)':'aaaaaa',
-              'size(0,5)':'16',
-            },
-        },
-        {
-            class:'HeroLabel',
-            frame:{x:'15',w:'0.5x',y:'320',h:'30'},
-            text:'详细信息',
-            textColor:'aaaaaa',
-            size:10,
-        },
-        {
-            class:'UIView',
-            frame:{w:'1x',y:'350',h:'200'},
-            backgroundColor:'ffffff',
-            subViews:[
-                {
-                    class:'HeroTextView',
-                    frame:{x:'15',r:'15',y:'10',h:'220'},
-                    backgroundColor:'ffffff',
-                    textColor:'666666',
-                    size:18,
-                    enable:false,
-                    text:'  辣椒素的辣椒 \n拉萨决定离开房间数量flakesf\nolks分开了三等奖疯狂的是非 '
-                }
-            ]
-        },
-        {
-            class: 'DRButton',
-            DRStyle: 'B1',
-            enable: true,
-            frame: { r: '15', x: '15', y: '570', h: '44' },
-            title: '联系 master',
-            click: {command:'goto:tel://13701673994'}
-        },
-        {
-            class: 'UIView',
-            frame: { r: '15', x: '15', y: '610', h: '20' },
-        },
-       {
             class:'UIView',
             name:'payView',
             hidden:true,
@@ -122,36 +31,140 @@ export default {
             backgroundColor:'eeeeeef1',
             subViews:[
                 {
-                    class:'HeroLabel',
-                    frame: { x: '25', r: '25', y: '10', h: '80' },
-                    numberOfLines:2,
-                    text:'请使用以太坊钱包扫描以下二维码，并在附加信息中输入以下Hex值来支付这笔订单，金额随意'
+                    class:'UIView',
+                    frame:{w:'1x',h:'1x'},
+                    name:'qrView',
+                    hidden:false,
+                    subViews:[
+                        {
+                            class:'HeroLabel',
+                            frame: { x: '25', r: '25', y: '10', h: '80' },
+                            numberOfLines:2,
+                            text:'请使用以太坊钱包扫描以下二维码，并在附加信息中输入以下Hex值来支付这笔订单，推荐的gas值为25001，约合0.0005 eth'
+                        },
+                        {
+                            class: 'HeroImageView',
+                            frame: { w: '200', h: '200'},
+                            center:{x:'0.5x',y:'200'},
+                            backgroundColor:'cccccc',
+                            image:getNode()+'/qr?value='+window.currentAddress
+                        },
+                        {
+                            class: 'HeroTextView',
+                            name: 'hash',
+                            backgroundColor:'eeeeee',
+                            frame: { x: '25', r: '25', y: '320', h: '80' },
+                        },
+                        {
+                            class: 'DRButton',
+                            DRStyle: 'B1',
+                            enable: true,
+                            frame: { x: '25', r: '25', y: '460', h: '44' },
+                            title: '完成',
+                            click: [{datas:[{name:'payView',hidden:true}]}]
+                        },
+                        {
+                            class: 'HeroButton',
+                            frame: { w: '80', r: '25', y: '510', h: '44' },
+                            title: '我没有钱包',
+                            titleColor:'999999',
+                            click:{datas:[{name:'qrView',hidden:true},{name:'newAcount',hidden:localStorage.address},{name:'acount',hidden:!localStorage.address}]}
+                        }
+                    ]
                 },
                 {
-                    class: 'HeroImageView',
-                    frame: { w: '200', h: '200'},
-                    center:{x:'0.5x',y:'200'},
-                    backgroundColor:'cccccc',
-                    image:'http://localhost:3001/qr?value=0x33739a02D8E7fE94888eABb5Ba9aaea0d228996F'
+                    class:'UIView',
+                    frame:{w:'1x',h:'1x'},
+                    name:'newAcount',
+                    hidden:true,
+                    subViews:[
+                        {
+                            class: 'DRTextField',
+                            theme: 'green',
+                            placeHolder: '密码',
+                            name: 'password',
+                            textFieldDidEditing: { name: 'password'},
+                            frame: { x: '25', r: '25', y: '40', h: '44'},
+                        },
+                        {
+                            class: 'DRButton',
+                            DRStyle: 'B1',
+                            enable: true,
+                            frame: { x: '25', r: '25', y: '104', h: '44' },
+                            title: '生成钱包地址',
+                            click: {click:'newAcount'}
+                        }
+                    ]
                 },
                 {
-                    class: 'HeroTextView',
-                    name: 'hash',
-                    backgroundColor:'eeeeee',
-                    frame: { x: '25', r: '25', y: '320', h: '80' },
-                },
-                {
-                    class: 'DRButton',
-                    DRStyle: 'B1',
-                    enable: true,
-                    frame: { x: '25', r: '25', y: '460', h: '44' },
-                    title: '完成',
-                    click: { datas:[{name:'payView',hidden:true}]}
-                },
-
+                    class:'UIView',
+                    frame:{w:'1x',h:'1x'},
+                    name:'acount',
+                    hidden:true,
+                    subViews:[
+                        {
+                            class:'HeroLabel',
+                            frame: { x: '25', w: '50', y: '30', h: '30' },
+                            text:'地址:'
+                        },
+                        {
+                            class:'HeroLabel',
+                            frame: { x: '25', r: '25', y: '50', h: '60' },
+                            name:'address',
+                            size:14,
+                            text:localStorage.address
+                        },
+                        {
+                            class:'HeroLabel',
+                            frame: { x: '25', w: '50', y: '110', h: '30' },
+                            text:'余额:'
+                        },
+                        {
+                            class:'HeroLabel',
+                            frame: { x: '70', r: '25', y: '110', h: '30' },
+                            name:'balance',
+                            text:localStorage.balance+' eth' + ((localStorage.balance == 0)?' (找一个懂区块链的朋友帮你吧)':'')
+                        },
+                        {
+                            class: 'HeroTextView',
+                            name: 'hash1',
+                            backgroundColor:'eeeeee',
+                            frame: { x: '25', r: '25', y: '170', h: '80' },
+                        },
+                        {
+                            class: 'DRTextField',
+                            theme: 'green',
+                            placeHolder: 'value',
+                            name: 'value',
+                            textFieldDidEditing: { name: 'value'},
+                            frame: { x: '25', r: '25', y: '290', h: '44' },
+                        },
+                        {
+                            class: 'DRTextField',
+                            theme: 'green',
+                            placeHolder: '密码',
+                            name: 'password',
+                            textFieldDidEditing: { name: 'password'},
+                            frame: { x: '25', r: '25', y: '354', h: '44' },
+                        },
+                        {
+                            class: 'DRButton',
+                            DRStyle: 'B1',
+                            enable: true,
+                            frame: { x: '25', r: '25', y: '440', h: '44' },
+                            title: '确定',
+                            click: {click:'pay'}
+                        },
+                        {
+                            class: 'HeroButton',
+                            frame: { w: '105', r: '25', y: '494', h: '44' },
+                            title: '使用其它钱包',
+                            titleColor:'999999',
+                            click:{datas:[{name:'qrView',hidden:false},{name:'newAcount',hidden:true},{name:'acount',hidden:true}]}
+                        }
+                    ]
+                }
             ]
-        },
-
-
-	]
+        }
+    ]
 };

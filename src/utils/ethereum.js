@@ -1,29 +1,45 @@
 import request from '../common/request';
+import {getNode} from './heroNodes';
+import {merge} from './index';
+
+if (!window.web3) {
+window.web3 = new window.Web3(new window.Web3.providers.HttpProvider(getNode()+'/eth'));
+  if(localStorage.address){
+      var bigN = window.web3.eth.getBalance(localStorage.address);
+      setTimeout(function(){
+        localStorage.balance = bigN.value();
+      },1000);
+  }
+};
 
 var api = 'http://api.etherscan.io/api'
-function getData(hash,cb) {
-  request('https://ipfs.io/ipfs/'+hash,'GET', {
+function getTransData(t,cb) {
+  request(getNode()+'/ipfs/'+t.hash,'GET', {
   },true).then(function(data){
-    cb(null,data);
+    merge(t,data)
+    cb(null,t);
   }, function(err){
     cb(err);
   });
 }
 function getHash(json,cb) {
-    request('http://localhost:3001/json2hash','GET', json,true).then(function(data){
+  request(getNode()+'/json2hash','GET', json,true).then(function(data){
     cb(null,data);
   }, function(err){
     cb(err);
   });
 }
 
-function hashArray2Array(hashs,cb) {
+function transArray2DataArray(trans,cb) {
   var arr = [];
-  for (var i = 0; i < hashs.length; i++) {
-    var hash = hashs[i];
-    getData(hash,function(err,d){
+  if (trans.length === 0) {
+    cb(null,arr);
+  };
+  for (var i = 0; i < trans.length; i++) {
+    var t = trans[i];
+    getTransData(t,function(err,d){
       if (!err) {
-        Array.isArray(d){
+        if(Array.isArray(d)){
           arr.concat(d);
         }else{
           arr.push(d);
@@ -31,7 +47,7 @@ function hashArray2Array(hashs,cb) {
       }else{
         cb(err);
       }
-      if (arr.length === hashs.length) {
+      if (arr.length === trans.length) {
         cb(null,arr);
       };
     })
@@ -40,7 +56,7 @@ function hashArray2Array(hashs,cb) {
 
 
 function getListData(address,cb) {
-  request('http://api.etherscan.io/api','GET', {
+  request('https://api.etherscan.io/api','GET', {
     module:'account',
     action:'txlist',
     address:address,
@@ -50,18 +66,18 @@ function getListData(address,cb) {
     apikey:'YourApiKeyToken'
   },true).then(function(data){
     if (data.result) {
-      var hashs = [];
+      var trans = [];
       for (var i = 0; i < data.result.length; i++) {
         var t = data.result[i];
         if (t.input && t.input.length > 40) {
-          var assic = window.web3.toAscii(t.input);
+          var assic = window.web3.utils.toAscii(t.input);
           if (assic.substring(0,5) === 'hero-') {
             var hash = assic.replace('hero-','');
-            hashs.push(hash);
+            trans.push({from:t.from,to:t.to,value:t.value,hash:hash});
           };
         };
       };
-      hashArray2Array(hashs,cb)
+      transArray2DataArray(trans,cb)
     };
   }, function(err){
     cb(err,null);
@@ -70,6 +86,6 @@ function getListData(address,cb) {
 
 
 export {
-  getListData,getData,getHash
+  getListData,getTransData,getHash
 };
 window.getHash = getHash;

@@ -2,7 +2,7 @@
 // HOME_PAGE --> @see .hero-cli.json#homepage
 // NODE_ENV --> the application start environment: development or production
 
-export var PATH = (window.location.origin + process.env.HOME_PAGE);
+export var PATH = (window.location.href.split('?')[0]);
 export var IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
 // You can access variables provided by `src/environments`

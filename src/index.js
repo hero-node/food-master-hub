@@ -3,6 +3,7 @@ function init() {
     require('hero-js/src/hero-app.html');
     require('mafia-js/src/dr-button.html');
     require('mafia-js/src/dr-text-field.html');
+    require('mafia-js/src/dr-table-view-cell.html');
     var args = {};
     var params = (window.location.search.split('?')[1] || '').split('&');
     var paramParts;
@@ -14,7 +15,7 @@ function init() {
         }
     }
     var app = { tabs: [
-    { url: args.state || path + '/pages/home.html', title: '首页' }
+    { url: args.heropage || path + '/pages/home.html', title: '首页' }
     ] };
     var app1 = document.createElement('hero-app');
 

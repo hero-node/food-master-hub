@@ -21,5 +21,7 @@
     "prod": {
       "host": "http://www.my-site.com:3000/mkt/pages/start.html"
     }
-  }
+  },
+  "homepage": ""
+
 }

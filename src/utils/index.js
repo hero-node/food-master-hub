@@ -32,11 +32,14 @@ var _initData = null;
 function getInitData() {
     if (localStorage.boot) {
         _initData = JSON.parse(localStorage.boot);
-        localStorage.boot = '';
     }
     _initData = _initData || {};
-    var params = (window.location.search.split('?')[1] || '').split('&');
-
+    var params = [];
+    var args = window.location.search.split('?');
+    for (var i = 1; i < args.length; i++) {
+        var arg = args[i];
+        params = params.concat(arg.split('&'));
+    };
     var param, paramParts;
 
     for (param in params) {

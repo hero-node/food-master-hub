@@ -22,22 +22,8 @@ var ui2Data = Hero.getState();
 })
 export class DecoratePage {
 
-    @Boot
-    boot(){
-      console.log('Bootstrap successfully!');
-    }
-
-    @ViewWillAppear
-    enter(){
-      console.log('Enter this page...');
-    }
-    @ViewWillDisappear
-    leave(){
-      console.log('I\'m going to leave this page...');
-    }
     @BeforeMessage
     before(data){
-      console.log('Before Handling Message from NativeApp...', data);
       if (ui2Data.gps&&ui2Data.phone && ui2Data.nickname && ui2Data.phone.length > 0 && ui2Data.nickname.length > 0 && ui2Data.gps.length>0) {
           Hero.out({datas:{name:'loginBtn',enable:true}});
       }else{
@@ -58,10 +44,5 @@ export class DecoratePage {
       navigator.geolocation.getCurrentPosition(function(position){
         Hero.out({datas:[{name:'gps',text:position.coords.longitude+','+position.coords.latitude}]})
       });
-    }
-
-    @AfterMessage
-    after(data){
-      console.log('After Handling Message from NativeApp...', data);
     }
 }

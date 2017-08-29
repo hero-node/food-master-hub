@@ -12,25 +12,20 @@ import {getInitData} from '../../utils/index';
 	view: ui
 })
 export class DecoratePage {
-
     @ViewWillAppear
     enter(){
 		if (!localStorage.phone || !localStorage.nickname || !localStorage.gps) {
 			Hero.out({command:'present:'+path+'/pages/start.html'});
 		};
+		window.currentAddress = Hero.address;
     }
     @Boot
     boot(){
-    	if (!window.web3) {
-			window.web3 = new window.Web3();
-    	};
-    	Hero.out({command:'showLoading'});
-    	var address = getInitData().address || '0xB7E9D52459a89e346C5777970cf66A190937c325';
-		   	var list = [
+    	Hero.address = getInitData().pageName || '0x4813B41918C8E571ec01117bf6FE3aB7b967EE74';
+		var list = [
 	    	{
 	    		sectionTitle:'我的活动',
 	    		rows:[
-
 					{
 		    			title:'增加 ...', //master name
 		    			addFood:true,
@@ -62,30 +57,73 @@ export class DecoratePage {
 		    			aboutUs:true
 		    		}
 	    		]
-	    	},
+	    	}
 	    ]
-		getListData(address,function(err,datas){
+		getListData(Hero.address,function(err,datas){
 			if (!err) {
+				var foods = list[0].rows;
+				var masters = list[1].rows;
+				var nears = list[2].rows;
+				var history = [];
+				var expired = [];
+
 				for (var i = 0; i < datas.length; i++) {
 					var data = datas[i];
-					if (data.food) {
-						data.title = data.food;
+					if (data.from.toLowerCase() === Hero.address.toLowerCase() && data.title && data.icon && data.time && data.phone && data.gps) {
 						data.detailText = data.desc;
-
 						data.height = 60;
-						list[0].rows.splice(0,0,data)
+						data.history = [];
+						foods.splice(0,0,data);
+					}else if(data.to.toLowerCase() === Hero.address.toLowerCase() && data.nickname && data.phone && data.desc && data.icon){
+						data.detailText = data.desc;
+						data.title = data.nickname;
+						data.height = 60;
+						masters.splice(0,0,data)
+					}else if(data.nickname && data.title && data.time && data.value){
+						history.push(data);
+					}else if(data.expired){
+						expired.push(data);
+					}
+				};
+				for (var i = 0; i < history.length; i++) {
+					var t = history[i];
+					for (var j = 0; j < foods.length; j++) {
+						if(foods[j].title === t.title){
+							foods[j].history.push(t);
+						}
 					};
 				};
-     			Hero.out({datas:[{name:'foodmaster',data:list}]})
+				for (var i = 0; i < expired.length; i++) {
+					var d = expired[i];
+					for (var j = 0; j < foods.length; j++) {
+						var food = foods[i];
+						if (food.title === d.title) {
+	      					foods.splice(j,1);
+						};
+					};
+					for (var k = 0; k < masters.length; k++) {
+						var master = masters[i];
+						if (master.nickname === d.title) {
+	      					masters.splice(k,1);
+						};
+					};
+				};
+				foods.sort(function(o,p){
+					return o.value > p.value;
+				});
+				masters.sort(function(o,p){
+					return o.value > p.value;
+				});
 			};
+			Hero.out({datas:[{name:'foodmaster',data:list}]});
 		});
     }
-    @Message(function(data){ return data.title && data.icon && data.address;})
+    @Message(function(data){ return data.nickname && data.icon && data.desc;})
     selectMaster(data) {
     	localStorage.boot = JSON.stringify(data);
-    	Hero.out({command:'goto:'+path+'/pages/home.html?pageName=hero-'+data.address});
+    	Hero.out({command:'goto:'+path+'/pages/home.html?pageName='+data.from});
     }
-    @Message(function(data){ return data.title && data.food;})
+    @Message(function(data){ return data.title && data.icon && data.time && data.phone && data.gps;})
     selectFood(data) {
     	localStorage.boot = JSON.stringify(data);
     	Hero.out({command:'goto:'+path+'/pages/food.html'});

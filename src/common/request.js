@@ -31,9 +31,7 @@ function send(url, method, data) {
     data && options.method === 'GET' ? (options.params = data) : (options.data = data);
 
     return new Promise((resolve, reject) => {
-        // Send Message to Native App, Tell App show Loading
         Hero.out({ command: 'showLoading' });
-
         axios(options).then((resp) => {
             if (!resp) {
                 reject(null);
