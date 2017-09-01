@@ -59,7 +59,7 @@ export class DecoratePage {
 		            class: 'DRButton',
 		            DRStyle: 'B8',
 		            enable: true,
-		            frame: { x: '15', y: '140', w: '100', h: '30' },
+		            frame: { x: '15', y: '120', w: '100', h: '30' },
 		            title: '联系 Master',
 		            click: {command:'goto:tel://'+(Hero.initData.phone||'')}
             	}
@@ -93,10 +93,11 @@ export class DecoratePage {
 			            class:'UIView',
 			            frame:{w:'1x',h:'200'},
 			            backgroundColor:'ffffff',
+			            clip:true,
 			            subViews:[
 			                {
 			                    class:'HeroTextView',
-			                    frame:{x:'15',r:'15',y:'10',h:'220'},
+			                    frame:{x:'15',r:'15',y:'10',h:'205'},
 			                    name:'detail',
 			                    backgroundColor:'ffffff',
 			                    textColor:'666666',

@@ -137,6 +137,7 @@
 				TargetAttributes = {
 					4AFD63341EC2B001009892AD = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 33W22ZS5YK;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -348,9 +349,11 @@
 			baseConfigurationReference = 1E3DAE54116CD2A7468F24E8 /* Pods-sample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 33W22ZS5YK;
 				INFOPLIST_FILE = sample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hero.sample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hero.master;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -360,9 +363,11 @@
 			baseConfigurationReference = B720155F2AE35BE17C6CF0A7 /* Pods-sample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 33W22ZS5YK;
 				INFOPLIST_FILE = sample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hero.sample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hero.master;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

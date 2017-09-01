@@ -68,7 +68,7 @@ export default {
                             frame: { w: '80', r: '25', y: '510', h: '44' },
                             title: '我没有钱包',
                             titleColor:'999999',
-                            click:{datas:[{name:'qrView',hidden:true},{name:'newAcount',hidden:localStorage.address},{name:'acount',hidden:!localStorage.address}]}
+                            click:{datas:[{name:'qrView',hidden:true},{name:'newAcount',hidden:localStorage.address!==undefined},{name:'acount',hidden:localStorage.address===undefined}]}
                         }
                     ]
                 },

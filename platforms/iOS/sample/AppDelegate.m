@@ -28,7 +28,7 @@
     [self.app on:@{
                    @"tabs":
                        @[@{
-                             @"url":[NSString stringWithFormat:@"%@%@",urlPath,@"/home.html"],
+                             @"url":[NSString stringWithFormat:@"%@%@",urlPath,@"/pages/home.html"],
                              @"class":@"ViewController",
                              }
                          ]

@@ -2,13 +2,14 @@ import request from '../common/request';
 import {getNode} from './heroNodes';
 import {merge} from './index';
 
+window.Web3 = require('web3');
 if (!window.web3) {
-window.web3 = new window.Web3(new window.Web3.providers.HttpProvider(getNode()+'/eth'));
+  window.web3 = new window.Web3(new window.Web3.providers.HttpProvider(getNode()+'/eth'));
   if(localStorage.address){
-      var bigN = window.web3.eth.getBalance(localStorage.address);
-      setTimeout(function(){
-        localStorage.balance = bigN.value();
-      },1000);
+    var bigN = window.web3.eth.getBalance(localStorage.address);
+    setTimeout(function(){
+      localStorage.balance = bigN.value();
+    },1000);
   }
 };
 

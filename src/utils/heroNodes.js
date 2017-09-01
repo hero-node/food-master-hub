@@ -1,5 +1,5 @@
 import request from '../common/request';
-var defaultNode = 'hero-mobile.com';
+var defaultNode = 'localhost';
 var heroNodes = JSON.parse(localStorage.heroNodes||"[]") ;
 if (heroNodes.length === 0) {
   heroNodes.push(defaultNode);

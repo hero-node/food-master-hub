@@ -1,6 +1,8 @@
+
 platform :ios, '7.0'
 
 target 'sample' do
-    pod 'hero-ios','1.1.32'
+    pod 'HeroIos','1.1.37'
+    pod 'DRMafia','0.0.25'
 end
 

@@ -18,7 +18,28 @@ export class DecoratePage {
     	var rows = [];
     	for (var i = 0; i < historyArr.length; i++) {
     		var his = historyArr[i];
-    		rows.push({class:'dr-cell143',text1:his.nickname,text2:window.web3.utils.fromWei(his.value),text3:(new Date(his.time)).toLocaleString()});
+    		rows.push(
+    			{
+    				class:'UIView',
+    				frame:{w:'1x',h:'44'},
+    				subViews:[
+    					{
+    						class:'HeroLabel',
+    						frame:{x:'10',w:'0.3x',h:'1x'},
+    						text:his.nickname,
+    					},
+    					{
+    						class:'HeroLabel',
+    						frame:{x:'0.35x',w:'0.3x',h:'1x'},
+    						text:window.web3.utils.fromWei(his.value),
+    					},
+    					{
+    						class:'HeroLabel',
+    						frame:{r:'10',w:'0.45x',h:'1x'},
+    						text:(new Date(his.time)).toLocaleString(),
+    					}
+    				]
+    			});
     	};
     	var list = [
 	        {

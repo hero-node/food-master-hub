@@ -21,7 +21,7 @@ export class DecoratePage {
     }
     @Boot
     boot(){
-    	Hero.address = getInitData().pageName || '0x4813B41918C8E571ec01117bf6FE3aB7b967EE74';
+    	Hero.address = getInitData().pageName || '0xb872Bb2f73a2dd24154Cca756774d2b5D9278418';
 		var list = [
 	    	{
 	    		sectionTitle:'我的活动',
@@ -39,13 +39,17 @@ export class DecoratePage {
 					{
 		    			title:'加入 ...', //master name
 		    			addMaster:true,
-		    			height:60
+						height:60
 		    		}
 	    		]
 	    	},
 			{
 	    		sectionTitle:'附近的活动',
 	    		rows:[
+					{
+		    			title:'无', //master name
+		    			height:60
+		    		}
 
 	    		]
 	    	},
@@ -54,7 +58,8 @@ export class DecoratePage {
 	    		rows:[
 					{
 		    			title:'Master Hub', //master name
-		    			aboutUs:true
+		    			aboutUs:true,
+		    			height:60
 		    		}
 	    		]
 	    	}
@@ -70,14 +75,18 @@ export class DecoratePage {
 				for (var i = 0; i < datas.length; i++) {
 					var data = datas[i];
 					if (data.from.toLowerCase() === Hero.address.toLowerCase() && data.title && data.icon && data.time && data.phone && data.gps) {
-						data.detailText = data.desc;
-						data.height = 60;
+						data.image = data.icon;
+						var content = data.detail;
+						data.detail = data.desc;
+						data.content = content
+						data.height = 88;
 						data.history = [];
 						foods.splice(0,0,data);
 					}else if(data.to.toLowerCase() === Hero.address.toLowerCase() && data.nickname && data.phone && data.desc && data.icon){
-						data.detailText = data.desc;
+						data.image = data.icon;
+						data.detail = data.desc;
 						data.title = data.nickname;
-						data.height = 60;
+						data.height = 88;
 						masters.splice(0,0,data)
 					}else if(data.nickname && data.title && data.time && data.value){
 						history.push(data);

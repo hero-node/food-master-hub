@@ -29,7 +29,6 @@ static bool customUserAgentHasSet = false;
 -(void)loadView{
     [super loadView];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    ((UIScrollView*)self.view).contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
 }
 -(void)viewDidLoad{
     [super viewDidLoad];
@@ -45,12 +44,6 @@ static bool customUserAgentHasSet = false;
     if ([json isKindOfClass:[NSDictionary class]]) {
     }
 }
-//loading重载
--(void)showLoading:(NSString*)str{
-}
--(void)stopLoading{
-}
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 }
